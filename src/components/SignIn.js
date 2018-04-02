@@ -20,6 +20,7 @@ export default class SignIn extends Component {
       .catch(error => {
         this.setState({ error });
       });
+    this.setState({ email: '', password: '' });
   };
 
   render() {

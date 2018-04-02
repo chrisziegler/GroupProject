@@ -21,6 +21,7 @@ export default class SignUp extends Component {
         console.log('error', error);
         this.setState({ error });
       });
+    this.setState({ email: '', password: '' });
   };
 
   render() {
