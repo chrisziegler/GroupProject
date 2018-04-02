@@ -1,0 +1,12 @@
+body {
+  width: 80%;
+  margin: 0 auto;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+/* @media (min-width: 768px) {
+  input {
+    margin-bottom: 20px;
+  }
+} */
