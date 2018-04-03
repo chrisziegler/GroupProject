@@ -1,8 +1,8 @@
 body {
-  width: 80%;
-  margin: 0 auto;
+  margin: 15px auto;
   padding: 0;
   font-family: sans-serif;
+  background-color: papayawhip;
 }
 
 /* @media (min-width: 768px) {
@@ -10,3 +10,28 @@ body {
     margin-bottom: 20px;
   }
 } */
+
+.App {
+  margin: 0 20px 0 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.fontscale {
+  font-size: calc(1.2rem + 0.5vw);
+}
+
+@media (min-width: 768px) {
+  .App {
+    width: 75%;
+    margin: 0 auto 0 auto;
+  }
+}
+
+@media (min-width: 1100px) {
+  .App {
+    width: 60%;
+    margin: 0 auto 0 auto;
+  }
+}
