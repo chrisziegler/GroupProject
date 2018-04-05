@@ -1,19 +1,19 @@
 export const SIGNED_IN = 'signed_in';
-export const ADD_GOAL = 'add_goal';
+export const SET_GOALS = 'set-goals';
 
-export function logUser(email) {
-  //eslint-disable-next-line
+export function logUser(email, uid) {
   const action = {
     type: SIGNED_IN,
-    email
+    email,
+    uid
   };
   return action;
 }
 
-export function addGoal(title) {
+export function setGoals(goals) {
   const action = {
-    type: ADD_GOAL,
-    title
+    type: SET_GOALS,
+    goals
   };
   return action;
 }
