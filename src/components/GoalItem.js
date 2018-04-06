@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ButtonComplete } from './Button';
+import { completeGoalRef } from '../firebase';
 
 class GoalItem extends Component {
+  completeGoal = () => {
+    // add to complete goals on the database - export new ref from firebase.js
+    // remove this goal from the goals reference
+    // const { email } = this.props.user;
+    // const title = this.props.goals[0].title;
+    // console.log('email', email, 'title', title);
+  };
+
   render() {
     const { goals, user } = this.props;
-
+    console.log('this.props', this.props);
     return (
       <ul className="list-group">
         {goals.map(goal => (
@@ -14,34 +24,14 @@ class GoalItem extends Component {
           >
             {goal.title}
             {goal.uid === user.uid && (
-              <span
-                style={{
-                  color: '#FF4100',
-                  cursor: 'pointer',
-                  border: '1px solid #FF4100',
-                  padding: '0 5px 0 5px',
-                  float: 'right',
-                  fontSize: '1.1rem',
-                  marginTop: '4px'
-                }}
-              >
-                Your Goals
-              </span>
+              <ButtonComplete logged onClick={this.completeGoal()}>
+                Complete Your Goal
+              </ButtonComplete>
             )}
             {goal.uid !== user.uid && (
-              <span
-                style={{
-                  color: '#001272',
-                  cursor: 'pointer',
-                  border: '1px solid #001272',
-                  padding: '0 3px 0 3px',
-                  float: 'right',
-                  fontSize: '1.1rem',
-                  marginTop: '4px'
-                }}
-              >
-                Team Goals
-              </span>
+              <ButtonComplete onClick={this.completeGoal()}>
+                Complete Team Goal
+              </ButtonComplete>
             )}
           </li>
         ))}
@@ -52,6 +42,7 @@ class GoalItem extends Component {
 
 function mapStateToProps(state) {
   const { goals, user } = state;
+  console.log('goals in map', goals);
   return {
     goals,
     user
