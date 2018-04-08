@@ -5,6 +5,7 @@ export const Button = styled.button`
   color: #2043ff;
   border: 1px solid #2043ff;
   background: white;
+  width: 70
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
@@ -30,11 +31,13 @@ export const ButtonComplete = styled.button`
   padding: 0 4px 0 4px;
   float: right;
   font-size: 1.2rem;
-  margin-top: 4px;
+  margin-top: 5px;
+  margin-bottom: -3px;
   &:hover {
     background: #2043ff;
     color: white;
   }
+
   ${props =>
     props.logged &&
     css`
