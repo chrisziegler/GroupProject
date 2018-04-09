@@ -15,8 +15,9 @@ class AddGoal extends Component {
 
   handleAddGoal = () => {
     const { title } = this.state;
-    const { email, uid } = this.props.user;
-    goalRef.push({ email, title, uid });
+    const { email } = this.props.user;
+    const timeStamp = Date.now();
+    goalRef.push({ email, title, timeStamp });
     this.setState({ title: '' });
   };
 

@@ -9,31 +9,38 @@ class GoalList extends Component {
     goalRef.on('value', snap => {
       let goals = [];
       snap.forEach(goal => {
-        const { email, title, uid } = goal.val();
-        goals.push({ email, title, uid });
+        const { email, title, timeStamp } = goal.val();
+        const serverKey = goal.key;
+        goals.push({ email, title, serverKey, timeStamp });
       });
       this.props.setGoals(goals);
     });
   }
 
+  // formatTime = timestamp => {
+  //   return new Date(timestamp).toLocaleDateString;
+  // };
+
   render() {
+    const { goals } = this.props;
+
     return (
       <div>
-        <h4
-          style={{
-            textAlign: 'center',
-            fontWeight: 700,
-            color: 'darkslategray'
-          }}
-        >
-          Milestones
-        </h4>
-        <div>
-          <GoalItem />
-        </div>
+        <h3>Goals</h3>
+
+        <ul className="list-group">
+          {goals.map(goal => <GoalItem goal={goal} key={goal.timeStamp} />)}
+        </ul>
       </div>
     );
   }
 }
 
-export default connect(null, { setGoals })(GoalList);
+function mapStateToProps(state) {
+  const { goals } = state;
+  return {
+    goals
+  };
+}
+
+export default connect(mapStateToProps, { setGoals })(GoalList);

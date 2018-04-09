@@ -1,50 +1,73 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ButtonComplete } from './Button';
-import { completeGoalRef } from '../firebase';
+import { completeGoalRef, goalRef } from '../firebase';
 
 class GoalItem extends Component {
   completeGoal = () => {
-    // add to complete goals on the database - export new ref from firebase.js
-    // remove this goal from the goals reference
-    // const { email } = this.props.user;
-    // const title = this.props.goals[0].title;
-    // console.log('email', email, 'title', title);
+    const { email } = this.props.user;
+    const completeTimeStamp = Date.now();
+    const { title, serverKey, timeStamp } = this.props.goal;
+    goalRef.child(serverKey).remove();
+    completeGoalRef.push({ email, title, timeStamp, completeTimeStamp });
+  };
+
+  formatTime = timestamp => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString();
   };
 
   render() {
-    const { goals, user } = this.props;
-    console.log('this.props', this.props);
+    const { user } = this.props;
+    const { email, title, timeStamp } = this.props.goal;
+
     return (
-      <ul className="list-group">
-        {goals.map(goal => (
-          <li
-            className="list-group-item fontscale"
-            key={Math.floor(Math.random() * 100000)}
-          >
-            {goal.title}
-            {goal.uid === user.uid && (
-              <ButtonComplete logged onClick={this.completeGoal()}>
-                Complete Your Goal
-              </ButtonComplete>
-            )}
-            {goal.uid !== user.uid && (
-              <ButtonComplete onClick={this.completeGoal()}>
-                Complete Team Goal
-              </ButtonComplete>
-            )}
-          </li>
-        ))}
-      </ul>
+      <li className="list-group-item fontscale">
+        {title}
+        <span
+          style={{
+            color: '#ff4100',
+            padding: '1px 3px 1px 3px',
+            marginLeft: 5,
+            fontSize: '1.1rem',
+            fontFamily: 'lato'
+          }}
+        >
+          {email}:
+        </span>
+        <span
+          style={{
+            color: 'white',
+            background: '#3A3A3A',
+            borderRadius: 3,
+            fontSize: '1.1rem',
+            fontFamily: 'lato',
+            margin: '0 3px 0 3px',
+            paddingLeft: 5,
+            paddingRight: 5
+          }}
+        >
+          {this.formatTime(timeStamp)}
+        </span>
+        {email === user.email && (
+          <ButtonComplete logged onClick={() => this.completeGoal()}>
+            Complete Your Goal
+          </ButtonComplete>
+        )}
+        {email !== user.email && (
+          <ButtonComplete onClick={() => this.completeGoal()}>
+            Complete Team Goal
+          </ButtonComplete>
+        )}
+        <br style={{ clear: 'both' }} />
+      </li>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { goals, user } = state;
-  console.log('goals in map', goals);
+  const { user } = state;
   return {
-    goals,
     user
   };
 }
